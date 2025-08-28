@@ -3,72 +3,52 @@ import { ExternalLink, MapPin, Twitter, Linkedin, Globe } from "lucide-react";
 
 export const metadata: Metadata = {
   title: "Author - Technical Writing Academy",
-  description:
-    "K Srinivas Rao - Author of Technical Writing Academy.",
+  description: "K Srinivas Rao - Author of Technical Writing Academy.",
 };
 
 export default function AuthorPage() {
   return (
-    <div className="max-w-4xl mx-auto px-4 sm:px-6 py-8 sm:py-12">
-      <div className="space-y-8 sm:space-y-12">
-        <section className="text-center space-y-4 sm:space-y-6">
-          <h1 className="text-3xl sm:text-4xl font-bold text-foreground">
-            Author
-          </h1>
+    <div className="max-w-3xl mx-auto px-6 py-12">
+      <div className="space-y-12">
+        <section className="space-y-6">
+          <h1 className="text-3xl font-normal">About the Author</h1>
+          <div className="prose max-w-none">
+            <p>Hi, I'm Srini.</p>
+          </div>
         </section>
 
-        {/* Author Profile */}
-        <section className="space-y-6 sm:space-y-8">
-          <div className="border border-border rounded-lg p-6 sm:p-8 space-y-6">
-            <div className="text-center space-y-4">
-              <h2 className="text-2xl sm:text-3xl font-bold text-foreground">
-                K Srinivas Rao
-              </h2>
-            </div>
+        <section className="space-y-6 pt-8 border-t border-border/30">
+          <h2 className="text-xl font-normal">Get in touch</h2>
+          <div className="space-y-3 max-w-sm">
+            <a
+              href="https://x.com/sriniously/"
+              target="_blank"
+              rel="noopener noreferrer"
+              className="flex items-center gap-3 text-muted-foreground hover:text-foreground transition-colors ui-font"
+            >
+              <Twitter className="h-4 w-4" />
+              <span>@sriniously</span>
+            </a>
 
-            {/* Social Links */}
-            <div className="space-y-4">
-              <div className="flex flex-col gap-3 max-w-md mx-auto">
-                <a
-                  href="https://x.com/sriniously/"
-                  target="_blank"
-                  rel="noopener noreferrer"
-                  className="flex items-center gap-4 p-4 border border-border rounded-lg hover:bg-muted transition-colors w-full"
-                >
-                  <Twitter className="h-5 w-5 text-blue-500" />
-                  <div>
-                    <p className="font-medium text-foreground">Twitter/X</p>
-                    <p className="text-sm text-muted-foreground">@sriniously</p>
-                  </div>
-                </a>
-                
-                <a
-                  href="https://www.linkedin.com/in/k-srinivas53168/"
-                  target="_blank"
-                  rel="noopener noreferrer"
-                  className="flex items-center gap-4 p-4 border border-border rounded-lg hover:bg-muted transition-colors w-full"
-                >
-                  <Linkedin className="h-5 w-5 text-blue-600" />
-                  <div>
-                    <p className="font-medium text-foreground">LinkedIn</p>
-                    <p className="text-sm text-muted-foreground">k-srinivas53168</p>
-                  </div>
-                </a>
-                
-                <a
-                  href="https://sriniously.xyz/"
-                  target="_blank"
-                  rel="noopener noreferrer"
-                  className="flex items-center gap-4 p-4 border border-border rounded-lg hover:bg-muted transition-colors w-full"
-                >
-                  <Globe className="h-5 w-5 text-green-600" />
-                  <div>
-                    <p className="font-medium text-foreground">Personal Site</p>
-                    <p className="text-sm text-muted-foreground">sriniously.xyz</p>
-                  </div>
-                </a>
-              </div>
-            </div>
+            <a
+              href="https://www.linkedin.com/in/k-srinivas53168/"
+              target="_blank"
+              rel="noopener noreferrer"
+              className="flex items-center gap-3 text-muted-foreground hover:text-foreground transition-colors ui-font"
+            >
+              <Linkedin className="h-4 w-4" />
+              <span>LinkedIn</span>
+            </a>
+
+            <a
+              href="https://sriniously.xyz/"
+              target="_blank"
+              rel="noopener noreferrer"
+              className="flex items-center gap-3 text-muted-foreground hover:text-foreground transition-colors ui-font"
+            >
+              <Globe className="h-4 w-4" />
+              <span>sriniously.xyz</span>
+            </a>
           </div>
         </section>
       </div>

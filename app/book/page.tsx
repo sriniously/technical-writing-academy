@@ -10,95 +10,103 @@ export const metadata: Metadata = {
 
 export default function BookPage() {
   return (
-    <div className="max-w-4xl mx-auto px-4 sm:px-6 py-8 sm:py-12">
-      <div className="space-y-8 sm:space-y-12">
-        <section className="text-center space-y-4 sm:space-y-6">
-          <h1 className="text-3xl sm:text-4xl font-bold text-foreground leading-tight">
+    <div className="max-w-3xl mx-auto px-6 py-12">
+      <div className="space-y-12">
+        <section className="space-y-6">
+          <h1 className="text-3xl font-normal">
             The Complete Guide to Technical Writing Excellence
           </h1>
-          <p className="text-lg sm:text-xl text-muted-foreground max-w-2xl mx-auto leading-relaxed px-4 sm:px-0">
-            Practical patterns for creating engaging, effective technical
-            documentation. Learn to transform complex ideas into clear,
-            actionable content that empowers users.
-          </p>
+          <div className="prose max-w-none">
+            <p>
+              This book is my attempt to capture everything I've learned about
+              making technical concepts accessible.
+            </p>
+            <p>
+              I've structured it as a journey from foundations to mastery, but
+              feel free to jump around. Each chapter stands on its own, and
+              actual learning happens when you connect ideas in your own way.
+            </p>
+          </div>
         </section>
 
-        <section className="space-y-4 sm:space-y-6 mb-6 sm:mb-8">
-          <h2 className="text-xl sm:text-2xl font-semibold text-foreground text-center">
-            Getting Started
-          </h2>
-          <div className="grid grid-cols-1 md:grid-cols-2 gap-3 sm:gap-4">
+        <section className="space-y-6 pt-8 border-t border-border/30">
+          <h2 className="text-xl font-medium">Start here</h2>
+          <div className="space-y-4">
             {bookIntro.map((intro, index) => (
               <Link
                 key={index}
                 href={intro.href}
-                className="p-4 sm:p-6 border border-border rounded-lg hover:bg-muted/50 transition-colors group min-h-[80px] flex flex-col justify-center gap-2"
+                className="block space-y-2 p-4 hover:bg-muted/30 transition-colors border-l-2 border-transparent hover:border-l-primary"
               >
-                <h3 className="text-base sm:text-lg font-medium text-foreground group-hover:text-primary transition-colors">
-                  {intro.title}
-                </h3>
-                {intro.description && (
-                  <p className="text-sm text-muted-foreground leading-relaxed">
-                    {intro.description}
-                  </p>
-                )}
+                <h3 className="font-medium ui-font">{intro.title}</h3>
+                <p className="text-muted-foreground text-sm leading-relaxed">
+                  {intro.description}
+                </p>
               </Link>
             ))}
           </div>
         </section>
 
-        <section className="space-y-6 sm:space-y-8">
+        <section className="space-y-12">
+          <div className="prose max-w-none">
+            <p className="text-muted-foreground">
+              The book is organized into eight parts, moving from foundational
+              concepts to advanced techniques. Parts marked as "coming soon" are
+              actively being written, this is very much a work in progress.
+            </p>
+          </div>
+
           {bookParts.map((part) => (
-            <div
-              key={part.part}
-              className="border border-border rounded-lg p-4 sm:p-6 hover:bg-muted/30 transition-colors"
-            >
-              {part.disabled ? (
-                <div className="block group cursor-not-allowed">
-                  <h2 className="text-xl sm:text-2xl font-semibold text-muted-foreground/60 mb-2 flex flex-col sm:flex-row items-start sm:items-center gap-2 sm:gap-3">
-                    <span>
+            <div key={part.part} className="space-y-4">
+              <div className="space-y-3">
+                {part.disabled ? (
+                  <div>
+                    <h2 className="text-xl font-medium text-muted-foreground/70 flex items-center gap-3">
                       Part {part.part}: {part.title}
-                    </span>
-                    <span className="text-xs sm:text-sm font-normal bg-muted px-2 py-1 rounded">
-                      Coming Soon
-                    </span>
-                  </h2>
-                  {part.description && (
-                    <p className="text-sm text-muted-foreground/60 mb-4 leading-relaxed">
-                      {part.description}
-                    </p>
-                  )}
-                </div>
-              ) : (
-                <Link href={`/book/part-${part.part}`} className="block group">
-                  <h2 className="text-xl sm:text-2xl font-semibold text-foreground mb-2 group-hover:text-primary transition-colors">
-                    Part {part.part}: {part.title}
-                  </h2>
-                  {part.description && (
-                    <p className="text-sm text-muted-foreground mb-4 leading-relaxed">
-                      {part.description}
-                    </p>
-                  )}
-                </Link>
-              )}
-              <div className="space-y-2 sm:space-y-3">
-                {part.chapters.map((chapter, index) => (
-                  <div
-                    key={index}
-                    className="flex items-start space-x-3 py-2"
+                      <span className="text-xs bg-muted/50 text-muted-foreground px-2 py-1 uppercase tracking-wide ui-font">
+                        Coming Soon
+                      </span>
+                    </h2>
+                    {part.description && (
+                      <p className="text-muted-foreground/60 leading-relaxed">
+                        {part.description}
+                      </p>
+                    )}
+                  </div>
+                ) : (
+                  <Link
+                    href={`/book/part-${part.part}`}
+                    className="block group"
                   >
-                    <span className="text-sm text-muted-foreground font-mono flex-shrink-0 mt-0.5">
+                    <h2 className="text-xl font-medium group-hover:text-primary transition-colors">
+                      Part {part.part}: {part.title}
+                    </h2>
+                    {part.description && (
+                      <p className="text-muted-foreground leading-relaxed group-hover:text-foreground/80 transition-colors">
+                        {part.description}
+                      </p>
+                    )}
+                  </Link>
+                )}
+              </div>
+
+              <div className="ml-6 space-y-3">
+                {part.chapters.map((chapter, index) => (
+                  <div key={index} className="flex gap-4">
+                    <span className="text-xs text-muted-foreground ui-font font-mono w-8 flex-shrink-0 mt-1">
                       {part.part}.{index + 1}
                     </span>
                     <div className="flex-1">
                       {chapter.disabled ? (
-                        <div>
-                          <span className="text-muted-foreground/60 cursor-not-allowed text-sm sm:text-base leading-relaxed">
-                            {chapter.title}{" "}
-                            <span className="text-xs">(Coming Soon)</span>
+                        <div className="space-y-1">
+                          <span className="text-muted-foreground/60 text-sm leading-relaxed block">
+                            {chapter.title}
+                            <span className="text-xs ml-2 text-muted-foreground/40">
+                              (draft)
+                            </span>
                           </span>
                           {chapter.description && (
-                            <p className="text-xs text-muted-foreground/50 mt-1 leading-relaxed">
+                            <p className="text-xs text-muted-foreground/50 leading-relaxed">
                               {chapter.description}
                             </p>
                           )}
@@ -106,13 +114,13 @@ export default function BookPage() {
                       ) : (
                         <Link
                           href={chapter.href}
-                          className="group block"
+                          className="group block space-y-1"
                         >
-                          <span className="text-foreground group-hover:text-primary cursor-pointer transition-colors text-sm sm:text-base leading-relaxed">
+                          <span className="text-foreground group-hover:text-primary text-sm leading-relaxed transition-colors block">
                             {chapter.title}
                           </span>
                           {chapter.description && (
-                            <p className="text-xs text-muted-foreground mt-1 leading-relaxed group-hover:text-muted-foreground/80 transition-colors">
+                            <p className="text-xs text-muted-foreground leading-relaxed group-hover:text-muted-foreground/80 transition-colors">
                               {chapter.description}
                             </p>
                           )}
@@ -124,6 +132,16 @@ export default function BookPage() {
               </div>
             </div>
           ))}
+        </section>
+
+        <section className="pt-8 border-t border-border/30">
+          <div className="prose max-w-none">
+            <p className="text-muted-foreground italic">
+              This book grows as I learn. If you find something unclear or
+              missing, that's valuable feedback. The goal isn't perfection, it's
+              progress toward better understanding.
+            </p>
+          </div>
         </section>
       </div>
     </div>

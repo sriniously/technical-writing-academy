@@ -1,166 +1,168 @@
-"use client"
+"use client";
 
-import Link from "next/link"
-import { ChevronLeft, ChevronRight, BookOpen, Home } from "lucide-react"
-import { Card, CardContent } from "@/components/ui/card"
-import { Button } from "@/components/ui/button"
-import { Separator } from "@/components/ui/separator"
-import { bookParts } from "@/app/book/book-structure"
+import Link from "next/link";
+import { bookParts } from "@/app/book/book-structure";
 
 interface PartLayoutProps {
-  partNumber: number
-  title: string
-  description?: string
-  children: React.ReactNode
+  partNumber: number;
+  title: string;
+  description?: string;
+  children: React.ReactNode;
 }
 
-export function PartLayout({ partNumber, title, description, children }: PartLayoutProps) {
-  const currentPart = bookParts.find(p => p.part === partNumber)
-  const prevPart = partNumber > 1 ? bookParts.find(p => p.part === partNumber - 1) : null
-  const nextPart = partNumber < bookParts.length ? bookParts.find(p => p.part === partNumber + 1) : null
-  
+export function PartLayout({
+  partNumber,
+  title,
+  description,
+  children,
+}: PartLayoutProps) {
+  const currentPart = bookParts.find((p) => p.part === partNumber);
+  const prevPart =
+    partNumber > 1 ? bookParts.find((p) => p.part === partNumber - 1) : null;
+  const nextPart =
+    partNumber < bookParts.length
+      ? bookParts.find((p) => p.part === partNumber + 1)
+      : null;
+
   // For Part 1, previous should go to Introduction
-  const hasPrevIntro = partNumber === 1
-  
-  const firstChapter = currentPart?.chapters.find(ch => !ch.disabled)
-  const isPartDisabled = currentPart?.disabled
+  const hasPrevIntro = partNumber === 1;
+
+  const firstChapter = currentPart?.chapters.find((ch) => !ch.disabled);
+  const isPartDisabled = currentPart?.disabled;
 
   return (
-    <article className="mx-auto max-w-4xl px-4 sm:px-6 py-6 sm:py-8">
-      {/* Breadcrumb Navigation */}
-      <nav className="mb-4 sm:mb-6 text-sm text-muted-foreground">
-        <div className="flex items-center gap-2">
-          <Link href="/" className="hover:text-primary transition-colors">
-            <Home className="h-4 w-4" />
-          </Link>
-          <span>/</span>
-          <Link href="/book" className="hover:text-primary transition-colors">
-            Book
-          </Link>
-          <span>/</span>
-          <span className="text-foreground">Part {partNumber}</span>
-        </div>
+    <article className="max-w-3xl mx-auto px-6 py-12">
+      <nav className="mb-12 text-sm text-muted-foreground ui-font">
+        <Link href="/book" className="hover:text-foreground transition-colors">
+          Book
+        </Link>
+        <span className="mx-2">→</span>
+        <span>Part {partNumber}</span>
       </nav>
 
-      {/* Part Header */}
-      <Card className="mb-6 sm:mb-8">
-        <CardContent className="pt-4 sm:pt-6">
-          <div className="flex flex-col sm:flex-row sm:items-center gap-2 sm:gap-3 mb-3 sm:mb-4">
-            <BookOpen className="h-5 w-5 sm:h-6 sm:w-6 text-primary flex-shrink-0" />
-            <h1 className="text-2xl sm:text-3xl font-bold leading-tight">
-              Part {partNumber}: {title}
-              {isPartDisabled && (
-                <span className="block sm:inline-block sm:ml-3 mt-2 sm:mt-0 text-xs sm:text-sm font-normal text-muted-foreground bg-muted px-2 py-1 rounded">
-                  Coming Soon
-                </span>
-              )}
-            </h1>
+      <header className="mb-12 space-y-4">
+        <div className="space-y-2">
+          <p className="text-muted-foreground ui-font text-sm">
+            Part {partNumber}
+            {isPartDisabled && (
+              <span className="ml-2 text-xs bg-muted/50 text-muted-foreground px-2 py-1 uppercase tracking-wide">
+                Coming Soon
+              </span>
+            )}
+          </p>
+          <h1 className="text-3xl font-normal leading-tight">{title}</h1>
+        </div>
+        {description && (
+          <div className="prose max-w-none">
+            <p className="text-muted-foreground">{description}</p>
           </div>
-          {description && (
-            <p className="text-base sm:text-lg text-muted-foreground">{description}</p>
-          )}
-        </CardContent>
-      </Card>
+        )}
+      </header>
 
-      {/* Part Content */}
-      <div className="prose prose-neutral dark:prose-invert max-w-none mb-12">
-        {children}
-      </div>
+      <div className="prose max-w-none mb-16">{children}</div>
 
-      {/* Chapters in this Part */}
       {currentPart && (
-        <Card className="mb-6 sm:mb-8">
-          <CardContent className="pt-4 sm:pt-6">
-            <h2 className="text-lg sm:text-xl font-semibold mb-3 sm:mb-4">Chapters in This Part</h2>
-            <div className="space-y-1 sm:space-y-2">
-              {currentPart.chapters.map((chapter, index) => (
-                <div key={index}>
+        <section className="mb-16 space-y-6">
+          <h2 className="text-xl font-medium">Chapters in this part</h2>
+          <div className="space-y-4">
+            {currentPart.chapters.map((chapter, index) => (
+              <div key={index} className="flex gap-4">
+                <span className="text-xs text-muted-foreground ui-font font-mono w-8 flex-shrink-0 mt-1">
+                  {partNumber}.{index + 1}
+                </span>
+                <div className="flex-1">
                   {chapter.disabled ? (
-                    <div className="p-3 text-sm sm:text-base text-muted-foreground">
-                      Chapter {index + 1}: {chapter.title} (Coming Soon)
+                    <div className="space-y-1">
+                      <span className="text-muted-foreground/60 text-sm leading-relaxed block">
+                        {chapter.title}
+                        <span className="text-xs ml-2 text-muted-foreground/40">
+                          (draft)
+                        </span>
+                      </span>
+                      {chapter.description && (
+                        <p className="text-xs text-muted-foreground/50 leading-relaxed">
+                          {chapter.description}
+                        </p>
+                      )}
                     </div>
                   ) : (
                     <Link
                       href={chapter.href}
-                      className="p-3 rounded-lg hover:bg-accent transition-colors min-h-[44px] flex items-center"
+                      className="group block space-y-1 p-2 -m-2 hover:bg-muted/30 transition-colors"
                     >
-                      <span className="text-sm sm:text-base">
-                        <span className="font-medium">Chapter {index + 1}:</span> {chapter.title}
+                      <span className="text-foreground group-hover:text-primary text-sm leading-relaxed transition-colors block">
+                        {chapter.title}
                       </span>
+                      {chapter.description && (
+                        <p className="text-xs text-muted-foreground leading-relaxed group-hover:text-muted-foreground/80 transition-colors">
+                          {chapter.description}
+                        </p>
+                      )}
                     </Link>
                   )}
                 </div>
-              ))}
+              </div>
+            ))}
+          </div>
+
+          {firstChapter && !isPartDisabled && (
+            <div className="pt-6 border-t border-border/30">
+              <Link
+                href={firstChapter.href}
+                className="inline-flex items-center text-primary hover:text-primary/80 transition-colors ui-font text-sm"
+              >
+                Start with Chapter 1 →
+              </Link>
             </div>
-          </CardContent>
-        </Card>
+          )}
+        </section>
       )}
 
-      <Separator className="my-6 sm:my-8" />
+      <nav className="pt-8 border-t border-border/30">
+        <div className="flex justify-between items-center">
+          <div>
+            {hasPrevIntro && (
+              <Link
+                href="/book/introduction"
+                className="text-muted-foreground hover:text-foreground transition-colors ui-font text-sm"
+              >
+                ← Introduction
+              </Link>
+            )}
+            {prevPart && !prevPart.disabled && (
+              <Link
+                href={`/book/part-${prevPart.part}`}
+                className="text-muted-foreground hover:text-foreground transition-colors ui-font text-sm"
+              >
+                ← Part {prevPart.part}
+              </Link>
+            )}
+          </div>
 
-      {/* Navigation */}
-      <div className="flex flex-col gap-4 sm:flex-row sm:items-center sm:justify-between">
-        <div className="flex flex-col sm:flex-row gap-2">
-          <Button variant="outline" size="sm" asChild className="min-h-[44px]">
-            <Link href="/book">
-              <BookOpen className="mr-2 h-4 w-4" />
-              Book Overview
-            </Link>
-          </Button>
-          {firstChapter && !isPartDisabled && (
-            <Button variant="outline" size="sm" asChild className="min-h-[44px]">
-              <Link href={firstChapter.href}>
-                Start Part {partNumber}
-                <ChevronRight className="ml-2 h-4 w-4" />
+          <Link
+            href="/book"
+            className="text-muted-foreground hover:text-foreground transition-colors ui-font text-sm"
+          >
+            Book Overview
+          </Link>
+
+          <div>
+            {nextPart && !nextPart.disabled && (
+              <Link
+                href={`/book/part-${nextPart.part}`}
+                className="text-muted-foreground hover:text-foreground transition-colors ui-font text-sm"
+              >
+                Part {nextPart.part} →
               </Link>
-            </Button>
-          )}
-          {isPartDisabled && (
-            <Button variant="outline" size="sm" disabled className="min-h-[44px]">
-              Part {partNumber} Coming Soon
-            </Button>
-          )}
+            )}
+            {nextPart && nextPart.disabled && (
+              <span className="text-muted-foreground/50 ui-font text-sm">
+                Part {nextPart.part} (coming soon)
+              </span>
+            )}
+          </div>
         </div>
-        
-        <div className="flex flex-col sm:flex-row gap-2">
-          {hasPrevIntro && (
-            <Button variant="outline" size="sm" asChild className="min-h-[44px]">
-              <Link href="/book/introduction">
-                <ChevronLeft className="mr-2 h-4 w-4" />
-                Introduction
-              </Link>
-            </Button>
-          )}
-          {prevPart && !prevPart.disabled && (
-            <Button variant="outline" size="sm" asChild className="min-h-[44px]">
-              <Link href={`/book/part-${prevPart.part}`}>
-                <ChevronLeft className="mr-2 h-4 w-4" />
-                Part {prevPart.part}
-              </Link>
-            </Button>
-          )}
-          {prevPart && prevPart.disabled && (
-            <Button variant="outline" size="sm" disabled className="min-h-[44px]">
-              <ChevronLeft className="mr-2 h-4 w-4" />
-              Part {prevPart.part} (Coming Soon)
-            </Button>
-          )}
-          {nextPart && !nextPart.disabled && (
-            <Button variant="default" size="sm" asChild className="min-h-[44px]">
-              <Link href={`/book/part-${nextPart.part}`}>
-                Part {nextPart.part}
-                <ChevronRight className="ml-2 h-4 w-4" />
-              </Link>
-            </Button>
-          )}
-          {nextPart && nextPart.disabled && (
-            <Button variant="outline" size="sm" disabled className="min-h-[44px]">
-              Part {nextPart.part} (Coming Soon)
-              <ChevronRight className="ml-2 h-4 w-4" />
-            </Button>
-          )}
-        </div>
-      </div>
+      </nav>
     </article>
-  )
+  );
 }

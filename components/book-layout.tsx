@@ -28,79 +28,63 @@ export function BookLayout({
   nextChapter,
 }: BookLayoutProps) {
   return (
-    <div className="max-w-4xl mx-auto px-4 sm:px-6 py-8 sm:py-12">
-      {/* Breadcrumb */}
-      <Breadcrumb className="mb-6 sm:mb-8">
-        <BreadcrumbList>
-          <BreadcrumbItem>
-            <BreadcrumbLink href="/book">Book</BreadcrumbLink>
-          </BreadcrumbItem>
-          <BreadcrumbSeparator />
-          <BreadcrumbItem>
-            <BreadcrumbLink href={`/book/part-${partNumber}`}>
-              Part {partNumber}
-            </BreadcrumbLink>
-          </BreadcrumbItem>
-          <BreadcrumbSeparator />
-          <BreadcrumbItem>
-            <BreadcrumbPage>Chapter {chapterNumber}</BreadcrumbPage>
-          </BreadcrumbItem>
-        </BreadcrumbList>
-      </Breadcrumb>
+    <div className="max-w-3xl mx-auto px-6 py-12">
+      <nav className="mb-12 text-sm text-muted-foreground">
+        <Link href="/book" className="hover:text-foreground transition-colors">
+          Book
+        </Link>
+        <span className="mx-2">→</span>
+        <Link href={`/book/part-${partNumber}`} className="hover:text-foreground transition-colors">
+          Part {partNumber}
+        </Link>
+        <span className="mx-2">→</span>
+        <span>Chapter {chapterNumber}</span>
+      </nav>
 
-      {/* Chapter Header */}
-      <header className="mb-8 sm:mb-12 pb-6 sm:pb-8 border-b border-border">
-        <div className="space-y-2">
-          <p className="text-sm font-medium text-muted-foreground">
-            Part {partNumber} • Chapter {chapterNumber}
+      <header className="mb-12">
+        <div className="space-y-3">
+          <p className="text-muted-foreground ui-font">
+            Part {partNumber}, Chapter {chapterNumber}
           </p>
-          <h1 className="text-2xl sm:text-3xl lg:text-4xl font-bold text-foreground leading-tight">{title}</h1>
+          <h1 className="text-3xl sm:text-4xl font-normal leading-tight">{title}</h1>
         </div>
       </header>
 
-      {/* Chapter Content */}
-      <article className="prose prose-lg max-w-none">{children}</article>
+      <article className="prose max-w-none">{children}</article>
 
-      {/* Navigation */}
-      <nav className="mt-12 sm:mt-16 pt-6 sm:pt-8 border-t border-border space-y-4 sm:space-y-6">
-        <div className="flex justify-center">
+      <nav className="mt-16 pt-8 border-t border-border/30 space-y-6">
+        <div className="text-center">
           <Link
             href={`/book/part-${partNumber}`}
-            className="text-sm text-muted-foreground hover:text-foreground transition-colors"
+            className="text-sm text-muted-foreground hover:text-foreground transition-colors ui-font"
           >
-            ← Part {partNumber} Introduction
+            ← Back to Part {partNumber}
           </Link>
         </div>
         
-        <div className="flex flex-col sm:flex-row justify-between items-stretch sm:items-center gap-4 sm:gap-0">
+        <div className="flex justify-between items-center">
           {prevChapter !== null ? (
             <Link
               href={prevChapter?.href || ""}
-              className="flex items-center space-x-2 text-muted-foreground hover:text-foreground transition-colors group p-3 sm:p-0 border border-border rounded-md sm:border-0 min-h-[44px]"
+              className="text-muted-foreground hover:text-foreground transition-colors group text-left ui-font"
             >
-              <ChevronLeft className="w-4 h-4 group-hover:-translate-x-1 transition-transform flex-shrink-0" />
-              <div className="text-left min-w-0">
-                <p className="text-xs">Previous</p>
-                <p className="font-medium truncate">{prevChapter?.title}</p>
-              </div>
+              <p className="text-xs uppercase tracking-wide mb-1">Previous</p>
+              <p className="text-sm">{prevChapter?.title}</p>
             </Link>
           ) : (
-            <div className="hidden sm:block" />
+            <div />
           )}
 
           {nextChapter !== null ? (
             <Link
               href={nextChapter?.href || ""}
-              className="flex items-center space-x-2 text-muted-foreground hover:text-foreground transition-colors group text-right p-3 sm:p-0 border border-border rounded-md sm:border-0 min-h-[44px]"
+              className="text-muted-foreground hover:text-foreground transition-colors group text-right ui-font"
             >
-              <div className="min-w-0">
-                <p className="text-xs">Next</p>
-                <p className="font-medium truncate">{nextChapter?.title}</p>
-              </div>
-              <ChevronRight className="w-4 h-4 group-hover:translate-x-1 transition-transform flex-shrink-0" />
+              <p className="text-xs uppercase tracking-wide mb-1">Next</p>
+              <p className="text-sm">{nextChapter?.title}</p>
             </Link>
           ) : (
-            <div className="hidden sm:block" />
+            <div />
           )}
         </div>
       </nav>

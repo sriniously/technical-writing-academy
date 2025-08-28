@@ -54,45 +54,41 @@ export default function ReadingListPage() {
   ];
 
   return (
-    <div className="max-w-4xl mx-auto px-4 sm:px-6 py-8 sm:py-12">
-      <div className="space-y-8 sm:space-y-12">
-        <section className="text-center space-y-4 sm:space-y-6">
-          <h1 className="text-3xl sm:text-4xl font-bold text-foreground">
-            Curated Reading List
-          </h1>
-          <p className="text-lg sm:text-xl text-muted-foreground max-w-2xl mx-auto leading-relaxed px-4 sm:px-0">
-            Essential books and resources to enhance your technical writing
-            skills.
-          </p>
+    <div className="max-w-3xl mx-auto px-6 py-12">
+      <div className="space-y-12">
+        <section className="space-y-6">
+          <h1 className="text-3xl font-normal">Reading List</h1>
+          <div className="prose max-w-none">
+            <p>
+              Books that have shaped my thinking about technical communication and writing. 
+              Some focus specifically on documentation, others on the broader art of clear communication.
+            </p>
+          </div>
         </section>
 
-        {/* Books Section */}
-        <section className="space-y-4 sm:space-y-6">
-          <h2 className="text-xl sm:text-2xl font-semibold text-foreground border-b border-border pb-2">
-            Essential Books
-          </h2>
-          <div className="grid gap-4 sm:gap-6 md:grid-cols-2">
-            {books.map((book, index) => (
-              <div
-                key={index}
-                className="border border-border rounded-lg p-4 sm:p-6 space-y-3"
-              >
-                <div className="space-y-2">
-                  <h3 className="text-base sm:text-lg font-semibold text-foreground">
-                    {book.title}
-                  </h3>
-                  <p className="text-sm text-muted-foreground">
-                    by {book.author}
-                  </p>
-                  <span className="inline-block px-2 py-1 text-xs bg-muted text-muted-foreground rounded">
-                    {book.category}
-                  </span>
-                </div>
-                <p className="text-sm text-muted-foreground leading-relaxed">
-                  {book.description}
-                </p>
+        <section className="space-y-8">
+          {books.map((book, index) => (
+            <article key={index} className="space-y-3 pb-6 border-b border-border/20 last:border-b-0 last:pb-0">
+              <div className="space-y-2">
+                <h3 className="text-lg font-medium">{book.title}</h3>
+                <p className="text-muted-foreground ui-font">by {book.author}</p>
               </div>
-            ))}
+              <p className="text-muted-foreground leading-relaxed opacity-90">
+                {book.description}
+              </p>
+              <span className="inline-block text-xs text-muted-foreground uppercase tracking-wide ui-font">
+                {book.category}
+              </span>
+            </article>
+          ))}
+        </section>
+
+        <section className="pt-8 border-t border-border/30">
+          <div className="prose max-w-none">
+            <p className="text-muted-foreground italic">
+              This list will grow over time as I discover more resources that contribute to better technical writing. 
+              Each book here has influenced how I think about communication in meaningful ways.
+            </p>
           </div>
         </section>
       </div>

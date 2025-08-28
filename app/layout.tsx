@@ -7,19 +7,19 @@ import { Navigation } from "@/components/navigation";
 import { ThemeProvider } from "@/components/theme-provider";
 
 export const metadata: Metadata = {
-  title: "Technical Writing Academy - Master the Art of Clear Communication",
+  title: "Technical Writing Academy",
   description:
-    "Comprehensive resources, courses, and guides for technical writers. Learn to create clear, concise, and effective technical documentation.",
+    "Learn to create clear, concise, and effective technical documentation.",
   keywords:
     "technical writing, documentation, technical communication, writing skills, content strategy",
-  authors: [{ name: "Technical Writing Academy" }],
-  creator: "Technical Writing Academy",
-  publisher: "Technical Writing Academy",
+  authors: [{ name: "Sriniously" }],
+  creator: "Sriniously",
+  publisher: "Sriniously",
   robots: "index, follow",
   openGraph: {
     title: "Technical Writing Academy",
     description:
-      "Master the art of technical writing with comprehensive resources and expert guidance.",
+      "Learn to create clear, concise, and effective technical documentation.",
     type: "website",
     locale: "en_US",
   },
@@ -27,7 +27,7 @@ export const metadata: Metadata = {
     card: "summary_large_image",
     title: "Technical Writing Academy",
     description:
-      "Master the art of technical writing with comprehensive resources and expert guidance.",
+      "Learn to create clear, concise, and effective technical documentation.",
   },
 };
 
